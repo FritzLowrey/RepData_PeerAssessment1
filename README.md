@@ -83,6 +83,12 @@ Show any code that is needed to
 2. Process/transform the data (if necessary) into a format suitable for your analysis
 
 
+```{r echo=TRUE}
+
+
+```
+
+
 ### What is mean total number of steps taken per day?
 
 For this part of the assignment, you can ignore the missing values in
