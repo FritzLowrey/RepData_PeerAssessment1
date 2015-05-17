@@ -128,7 +128,7 @@ colnames(new_totals) <- c("date","steps")
 
 ggplot(new_totals, aes(x = steps)) + 
   geom_histogram(fill = "blue", binwidth = 1000) + 
-  labs(title="Steps per Day", 
+  labs(title="Imputed steps per Day", 
        x = "Steps per Day", y = "Frequency") + theme_bw() 
 ```
 
@@ -153,7 +153,7 @@ For this part the weekdays() function may be of some help here. Use the dataset 
 Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
 ```r
-weekend_or_weekday <- function(data) {
+compute_steps <- function(data) {
     steps <- aggregate(data$steps, by=list(interval = data$interval),
                           FUN=mean, na.rm=T)
     colnames(steps) <- c("interval", "steps")
@@ -165,8 +165,8 @@ new_activity$weekday <- as.factor(weekdays(new_activity$date))
 weekend_vals <- subset(new_activity, weekday %in% c("Saturday","Sunday"))
 weekday_vals <- subset(new_activity, !weekday %in% c("Saturday","Sunday"))
 
-weekend_steps <- weekend_or_weekday(weekend_vals)
-weekday_steps <- weekend_or_weekday(weekday_vals)
+weekend_steps <- compute_steps(weekend_vals)
+weekday_steps <- compute_steps(weekday_vals)
 
 weekend_steps$dayofweek <- rep("weekend", nrow(weekend_steps))
 weekday_steps$dayofweek <- rep("weekday", nrow(weekday_steps))
